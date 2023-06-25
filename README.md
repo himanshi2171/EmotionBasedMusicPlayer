@@ -4,7 +4,8 @@
 
 Dependecies 
 You have to add
-pip install numpy     
+
+    pip install numpy 
 pip install pandas 
 pip install tensorflow 
 pip install keras
