@@ -2,7 +2,8 @@
  An emotion-based music player is a concept that involves using technology to select and play music based on the user's emotional state. 
 
 
-Dependecies You have to add
+Dependecies 
+You have to add
 pip install numpy     
 pip install pandas 
 pip install tensorflow 
