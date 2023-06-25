@@ -2,8 +2,7 @@
  An emotion-based music player is a concept that involves using technology to select and play music based on the user's emotional state. 
 
 
-Dependecies 
-You have to add
+Dependecies :-You have to add
 
  pip install numpy 
 
@@ -14,6 +13,7 @@ You have to add
  pip install keras
 
  pip install opencv-python
+ 
  pip install Tkinter
 
 Download kaggle dataset fer2013.csv from here => https://www.kaggle.com/c/challenges-in-representation-learning-facial-expression-recognition-challenge/data
