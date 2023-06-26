@@ -1,15 +1,13 @@
 from tkinter import *
 from tkinter import ttk
 import numpy as np
-import os
-import random
 import subprocess
 import cv2
 
-from keras.models import model_from_json
-from keras.preprocessing import image
-from tensorflow.keras.preprocessing.image import img_to_array
 
+from tensorflow.keras.preprocessing.image import img_to_array
+from keras.models import model_from_json
+# from keras.preprocessing import image
 
 root = Tk()
 
@@ -19,23 +17,24 @@ root.attributes('-toolwindow', True)
 root.geometry('800x800')
 root.title("Emotion Based Music Player")
 
-label = Label(root, text="Let's make some noise!")  # widget
+label = Label(root, text="Let's make some noise!")
 label.pack()
-photo = PhotoImage(file='da.gif')
+# The .pack() method is used to add the label widget to the GUI.
+photo = PhotoImage(file='Music.gif')
 labelPhoto = Label(root, image=photo)
 labelPhoto.pack()
 
 
-def scan():
-    # load model from keras library
+def scan():  
     model = model_from_json(open("fer.json", "r").read())
-    # load weights
+   
     model.load_weights('fer.h5')
 
-    face_haar_cascade = cv2.CascadeClassifier(
+    face_haar_cascade = cv2.CascadeClassifier(  
         'haarcascade_frontalface_default.xml')
 
     cap = cv2.VideoCapture(0)
+   
 
     while True:
         # captures frame and returns boolean value and captured image //error
@@ -45,7 +44,6 @@ def scan():
         gray_img = cv2.cvtColor(test_img, cv2.COLOR_BGR2GRAY)
 
         faces_detected = face_haar_cascade.detectMultiScale(gray_img, 1.32, 5)
-
         for (x, y, w, h) in faces_detected:
             cv2.rectangle(test_img, (x, y), (x + w, y + h),
                           (255, 0, 0), thickness=7)
@@ -69,9 +67,9 @@ def scan():
                         cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
 
         resized_img = cv2.resize(test_img, (600, 350))
-        cv2.imshow('Emotion Melody', resized_img)
+        cv2.imshow('Emotion Based Music Player', resized_img)
         key = cv2.waitKey(30) & 0xff
-        if key == 13: 
+        if key == 13:
             break
 
     cap.release()
@@ -80,7 +78,6 @@ def scan():
     mp = r'C:\Program Files\VideoLAN\VLC\vlc.exe'
 
     if predicted_emotion == "happy":
-
         file = r'C:\Users\HP\Documents\Songs\Happy'
         lab = Label(
             root, text="You looked happy, so an energetic happy playlist was created!")
@@ -108,17 +105,17 @@ def scan():
         file = r'C:\Users\HP\Documents\Songs\Netural'
         subprocess.call([mp, file])
 
-    # if predicted_emotion == "fear":
-    #     lab = Label(
-    #         root, text="You were calm, hope that playlist matched your vibe!")
-    #     lab.pack()
-    #     file = r'C:\Users\HP\Documents\Songs\Fear'
-    #     subprocess.call([mp, file])
+    if predicted_emotion == "fear":
+        lab = Label(
+            root, text="You were calm, hope that playlist matched your vibe!")
+        lab.pack()
+        file = r'C:\Users\HP\Documents\Songs\Fear'
+        subprocess.call([mp, file])
 
 
-btn = ttk.Button(root, text="Scan face", command=scan)
+btn = ttk.Button(root, text="Scan Your Face", command=scan)
 btn.pack()
-label = Label(root, text="Press the Enter Key when you feel your emotion has been detected and a playlist based on your emotion will be created in your music player!!\n\n\n\n")
+label = Label(root, text="\n\n Press the Enter Key when you feel your emotion has been detected and a play song based on your emotion!!\n\n")
 label.pack()
 
 root.mainloop()
